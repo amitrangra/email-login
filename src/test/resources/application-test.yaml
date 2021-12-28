@@ -1,0 +1,19 @@
+spring:
+  mail:
+    host: 127.0.0.1
+    port: 3025
+    test-connection: false
+    properties:
+      mail:
+        transport:
+          protocol: smtp
+        smtp:
+          auth: false
+          starttls:
+            enable: false
+            required: false
+    username:
+    password:
+    from: "email-client-test@example.com"
+
+jwk: '{"kty":"EC","d":"9ygYdlHc14r7COeHJKpc2ZbCB2rniIk9yqub-sY2R69aKlxn-7jZLQbP7nU8Py2f","use":"sig","crv":"P-384","kid":"dd8af719-e302-4358-9cd2-5060162ac55c","x":"xlOuUtxobXEWvlN4NeJRQACiNpouRBTP512tgT5Nbx80jHktA8Vz1Cr-rPltJD5b","y":"yXUWtKO4zZnGGBnBk1c0KkJAiqSeQu07z9A4OXO1CKPeSADjxTeG7ALnHQUc5IfT"}'
