@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <title>Email Login</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -37,6 +37,7 @@
                 </div>
             </div>
 
+            <input type="hidden" id="goto" name="goto" th:value="${goto}">
             <button class="w3-button w3-block w3-section w3-blue w3-ripple w3-padding">Send</button>
 
         </form>

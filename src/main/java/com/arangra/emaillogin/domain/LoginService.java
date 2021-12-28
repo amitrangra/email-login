@@ -1,5 +1,6 @@
 package com.arangra.emaillogin.domain;
 
+import static com.arangra.emaillogin.adapter.inbound.login.LoginEndpoint.GOTO;
 import static java.lang.String.format;
 
 import org.springframework.mail.SimpleMailMessage;
@@ -18,9 +19,10 @@ public class LoginService {
         this.jwtService = jwtService;
     }
 
-    public String sendEmail(String to) throws JOSEException {
+    public String sendEmail(String to, String gotoPage) throws JOSEException {
         String token = jwtService.generateJwt(to);
-        mailMessage.setText(format(mailMessage.getText(), token, "link"));
+        String gotoPageWithToken = GOTO.equals(gotoPage)? gotoPage:gotoPage+"?token="+token;
+        mailMessage.setText(format(mailMessage.getText(), token, gotoPageWithToken));
         mailMessage.setTo(to);
         emailClient.sendEmail(mailMessage);
         return "success";
