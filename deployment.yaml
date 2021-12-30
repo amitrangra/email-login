@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: email-login
+  name: email-login
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: email-login
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: email-login
+    spec:
+      containers:
+      - image: arangra/email-login
+        name: email-login
+        ports:
+          - containerPort: 8080
+        envFrom:
+          - secretRef:
+              name: dev-secrets
+status: {}
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: email-login
+  name: email-login
+spec:
+  ports:
+    - name: 8080-8080
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+  selector:
+    app: email-login
+  type: ClusterIP
+status: {}
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    dev.okteto.com/generate-host: "true"
+  name: email-login
+spec:
+  rules:
+    - http:
+        paths:
+          - backend:
+              service:
+                name: email-login
+                port:
+                  number: 8080
+            path: /
+            pathType: Prefix
